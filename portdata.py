@@ -1,4 +1,5 @@
 import csv
+from datetime import datetime
 
 def port_data():
     user_dict = port_users()
@@ -51,6 +52,8 @@ def port_stories(filename, user_dict):
     output_filename1 = "user_" + filename[0:temp] + ".csv"
     output_f1 = open(output_filename1, 'w')
     for line in input_f:
+        if('\0' in line):
+            print(line)
         element = line.split("\t")
         story_id = element[0]
         title = element[1]
@@ -113,7 +116,12 @@ def port_comments():
     for line in input_f:
         line = line.replace('\n', '')
         element = line.split("\t")
-        output_line =  element[0]+","+element[1]+","+element[2]+","+element[3]+","+element[4]+","+element[5]+","+str(element[6]) + ",\"" + element[7] + "\",\"" + element[8] + "\"\n"
+        date = element[6]
+        try:
+            datetime.strptime(date, "%Y-%m-%d")
+        except ValueError:
+            date = '1970-01-01'
+        output_line =  element[0]+","+element[1]+","+element[2]+","+element[3]+","+element[4]+","+element[5]+","+date + ",\"" + element[7] + "\",\"" + element[8] + "\"\n"
         output_f.write(output_line)
         tuple1 = (element[2], element[5])
         if tuple1 in count_comments:
@@ -142,7 +150,12 @@ def port_old_comments():
     for line in input_f:
         line = line.replace('\n', '')
         element = line.split("\t")
-        output_line =  element[0]+","+element[1]+","+element[2]+","+element[3]+","+element[4]+","+element[5]+","+str(element[6]) + ",\"" + element[7] + "\",\"" + element[8] + "\"\n"
+        date = element[6]
+        try:
+            datetime.strptime(date, "%Y-%m-%d")
+        except ValueError:
+            date = '1970-01-01'
+        output_line =  element[0]+","+element[1]+","+element[2]+","+element[3]+","+element[4]+","+element[5]+","+date + ",\"" + element[7] + "\",\"" + element[8] + "\"\n"
         output_f.write(output_line)
     input_f.close()
     output_f.close()
