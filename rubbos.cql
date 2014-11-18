@@ -1,4 +1,4 @@
-CREATE KEYSPACE IF NOT EXISTS rubbos WITH REPLICATION = {'class' : 'SimpleStrategy', 'replication_factor' : 2};
+CREATE KEYSPACE IF NOT EXISTS rubbos WITH REPLICATION = {'class' : 'SimpleStrategy', 'replication_factor' : 1};
 USE rubbos;
 
 CREATE TABLE categories (

@@ -9,5 +9,5 @@ COPY moderator_log (id, moderator_id, comment_id, rating) FROM '/home/deepti/rub
 COPY user_logins (nickname, password, id, access) FROM '/home/deepti/rubbos/RUBBoS/database/user_logins.csv';
 COPY user_stories (nickname, date, story_id, title) FROM '/home/deepti/rubbos/RUBBoS/database/user_stories.csv';
 COPY user_old_stories (nickname, date, story_id, title) FROM '/home/deepti/rubbos/RUBBoS/database/user_old_stories.csv';
-COPY comment_count (story_id, rating, count) FROM '/home/deepti/rubbos/RUBBoS/database/comment_count.csv';
+COPY comment_count (story_id, rating, "count") FROM '/home/deepti/rubbos/RUBBoS/database/comment_count.csv';
 
