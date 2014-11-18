@@ -124,6 +124,14 @@ CREATE TABLE user_stories (
 	PRIMARY KEY(nickname, date, story_id)
 ) WITH CLUSTERING ORDER BY (date DESC);
 
+CREATE TABLE user_old_stories (
+        nickname VARCHAR,
+        date TIMESTAMP,
+        story_id BIGINT,
+        title TEXT,
+        PRIMARY KEY(nickname, date, story_id)
+) WITH CLUSTERING ORDER BY (date DESC);
+
 CREATE TABLE comment_count (
 	story_id BIGINT,
 	rating INT,
