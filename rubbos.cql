@@ -2,13 +2,13 @@ CREATE KEYSPACE IF NOT EXISTS rubbos WITH REPLICATION = {'class' : 'SimpleStrate
 USE rubbos;
 
 CREATE TABLE categories (
-	id BIGINT,
+	id TIMEUUID,
 	name VARCHAR,
 	PRIMARY KEY(id)
-);
+) WITH COMPACT STORAGE;
 
 CREATE TABLE users (
-	id BIGINT,
+	id TIMEUUID,
 	firstname VARCHAR,
 	lastname VARCHAR,
 	nickname VARCHAR,
@@ -18,23 +18,23 @@ CREATE TABLE users (
 	access INT,
 	creation_date timestamp,
 	PRIMARY KEY(id)
-);
+) WITH COMPACT STORAGE;
 
 CREATE TABLE user_logins (
 	nickname VARCHAR,
 	password VARCHAR,
-	id BIGINT,
+	id TIMEUUID,
 	access INT,
 	PRIMARY KEY(nickname, password)
 );
 
 CREATE TABLE stories (
-	id BIGINT,
+	id TIMEUUID,
 	title VARCHAR,
 	body TEXT,
 	date TIMESTAMP,
-	writer BIGINT,
-	category BIGINT,
+	writer TIMEUUID,
+	category TIMEUUID,
 	PRIMARY KEY(id, date)
 )
 WITH CLUSTERING ORDER BY (date DESC);
@@ -43,12 +43,12 @@ CREATE INDEX stories_category
 	on stories(category);
 
 CREATE TABLE old_stories (
-        id BIGINT,
+        id TIMEUUID,
         title VARCHAR,
         body TEXT,
-        date TIMESTAMP,
-        writer BIGINT,
-        category BIGINT,
+	date TIMESTAMP,
+        writer TIMEUUID,
+        category TIMEUUID,
         PRIMARY KEY(id, date)
 )
 WITH CLUSTERING ORDER BY (date DESC);
@@ -57,21 +57,21 @@ CREATE INDEX old_stories_category
         on old_stories(category);
 
 CREATE TABLE submissions (
-	id BIGINT,
+	id TIMEUUID,
 	title VARCHAR,
         body TEXT,
         date TIMESTAMP,
-        writer BIGINT,
-        category BIGINT,
+        writer TIMEUUID,
+        category TIMEUUID,
         PRIMARY KEY(id, date)
 ) 
 WITH CLUSTERING ORDER BY (date DESC);
 
 CREATE TABLE comments (
-	id BIGINT,
-	writer BIGINT,
-	story_id BIGINT,
-	parent BIGINT,
+	id TIMEUUID,
+	writer TIMEUUID,
+	story_id TIMEUUID,
+	parent TIMEUUD,
 	childs BIGINT,
 	rating INT,
 	date TIMESTAMP,
@@ -88,10 +88,10 @@ CREATE INDEX comments_parent
 	ON comments(parent);
 
 CREATE TABLE old_comments (
-        id BIGINT,
-        writer BIGINT,
-        story_id BIGINT,
-        parent BIGINT,
+        id TIMEUUID,
+        writer TIMEUUID,
+        story_id TIMEUUID,
+        parent TIMEUUID,
         childs BIGINT,
         rating INT,
         date TIMESTAMP,
@@ -108,34 +108,34 @@ CREATE INDEX old_comments_parent
         ON old_comments(parent);
 
 CREATE TABLE moderator_log (
-	id BIGINT,
-	moderator_id BIGINT,
-	comment_id BIGINT,
+	id TIMEUUID,
+	moderator_id TIMEUUID,
+	comment_id TIMEUUID,
 	rating INT,
 	date TIMESTAMP,
 	PRIMARY KEY(id)
-);	
+) WITH COMPACT STORAGE;	
 
 CREATE TABLE user_stories (
 	nickname VARCHAR, 
 	date TIMESTAMP, 
-	story_id BIGINT, 
+	story_id TIMEUUID, 
 	title TEXT, 
 	PRIMARY KEY(nickname, date, story_id)
-) WITH CLUSTERING ORDER BY (date DESC);
+) WITH CLUSTERING ORDER BY (date DESC) AND COMPACT STORAGE;
 
 CREATE TABLE user_old_stories (
         nickname VARCHAR,
         date TIMESTAMP,
-        story_id BIGINT,
+        story_id TIMEUUID,
         title TEXT,
         PRIMARY KEY(nickname, date, story_id)
-) WITH CLUSTERING ORDER BY (date DESC);
+) WITH CLUSTERING ORDER BY (date DESC) AND COMPACT STORAGE;
 
 CREATE TABLE comment_count (
-	story_id BIGINT,
+	story_id TIMEUUID,
 	rating INT,
 	count INT,
 	PRIMARY KEY(story_id, rating)
-) WITH CLUSTERING ORDER BY (rating ASC);
+) WITH CLUSTERING ORDER BY (rating ASC) AND COMPACT STORAGE;
 
