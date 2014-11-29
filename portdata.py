@@ -6,12 +6,18 @@ import random
 
 def port_data():
     user_dict = port_users()
+    print(len(user_dict))
     stories_dict = port_stories('stories.data', user_dict)
     port_stories('old_stories.data', user_dict)
     port_submissions(user_dict)
     comment_dict = port_old_comments(user_dict, stories_dict)
+    print(len(comment_dict))
     port_comments(user_dict, stories_dict, comment_dict)
     port_moderator_log(user_dict, comment_dict)
+    # for key, elem in comment_dict:
+    #     for key1, elem1 in comment_dict:
+    #         if key != key1 and elem == elem1:
+    #             print("Clash: "+ key +"," + key1)
 
 # Function Name: port_users
 # 1. Ports users.data to users.csv
@@ -27,13 +33,12 @@ def port_users():
     output_f1 = open(output_filename1, 'w')
     user_dict = dict()
     for line in input_f:
-        line.replace('\n', '')
         element = line.split("\t")
         date = element[8]
         try:
-            temp_date = datetime.datetime.strptime(date, "%Y-%m-%d")
+            temp_date = datetime.datetime.strptime(date, "%Y-%m-%d\n")
         except ValueError:
-            date = '1970-01-01'
+            date = '1970-01-01\n'
             temp_date = datetime.datetime.strptime(date, "%Y-%m-%d")
         id = str(TimeUUID.convert(temp_date))
         output_line = id
@@ -43,7 +48,7 @@ def port_users():
         output_f.write(output_line)
         output_line = element[3] +"," + element[4] + "," + id + "," + element[7]+"\n"
         output_f1.write(output_line)
-        user_dict[element[0]] = (element[3], id)
+        user_dict[element[0]] = (element[3],id)
 
     input_f.close()
     output_f.close()
