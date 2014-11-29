@@ -71,7 +71,7 @@ CREATE TABLE comments (
 	id TIMEUUID,
 	writer TIMEUUID,
 	story_id TIMEUUID,
-	parent TIMEUUD,
+	parent TIMEUUID,
 	childs BIGINT,
 	rating INT,
 	date TIMESTAMP,
