@@ -34,7 +34,7 @@ INSERT INTO categories (id, name) VALUES (31,'Hardware');
 INSERT INTO categories (id, name) VALUES (32,'IBM');
 INSERT INTO categories (id, name) VALUES (33,'Intel');
 INSERT INTO categories (id, name) VALUES (34,'Internet Explorer');
-INSERT INTO categories (id, name) VALUES (35,'It\'s funny.  Laugh.');
+INSERT INTO categories (id, name) VALUES (35,'Its funny.  Laugh.');
 INSERT INTO categories (id, name) VALUES (36,'Java');
 INSERT INTO categories (id, name) VALUES (37,'KDE');
 INSERT INTO categories (id, name) VALUES (38,'Links');
