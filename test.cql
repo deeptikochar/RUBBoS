@@ -1,3 +1,4 @@
+USE rubbos;
 INSERT INTO categories (id, name) VALUES (0,'AMD');
 INSERT INTO categories (id, name) VALUES (1,'America Online');
 INSERT INTO categories (id, name) VALUES (2,'Amiga');
