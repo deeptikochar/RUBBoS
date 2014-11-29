@@ -66,7 +66,7 @@ def port_stories(filename, user_dict):
     temp = filename.find('.')
     output_filename = filename[0:temp] + '.csv'
     output_f = open(output_filename, 'w')
-    output_filename1 = "user_" + filename[0:temp] + ".csv"
+    output_filename1 = filename[0:temp] + "_users.csv"
     output_f1 = open(output_filename1, 'w')
     stories_dict = dict()
     for line in input_f:
@@ -86,12 +86,11 @@ def port_stories(filename, user_dict):
         writer_id = element[4]
         if(writer_id in user_dict):
             nickname = user_dict[writer_id][0]
-            output_line1 = nickname + "," + date + "," + id + ",\"" + title +"\"\n"
+            output_line1 = id +",\"" + nickname +"\"\n"
             output_f1.write(output_line1)
             writer_timeuuid = user_dict[writer_id][1]
         else:
             print("Writer not in user_dict:" + writer_id)
-            # write code for randomly picking a writer here
 
         output_line = id + ",\"" + element[1] + "\",\"" + element[2] + "\"," + date + "," + writer_timeuuid +","+element[5]
         output_f.write(output_line)

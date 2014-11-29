@@ -34,7 +34,7 @@ CREATE TABLE stories (
 	body TEXT,
 	date TIMESTAMP,
 	writer TIMEUUID,
-	category TIMEUUID,
+	category INT,
 	PRIMARY KEY(id, date)
 )
 WITH CLUSTERING ORDER BY (date DESC);
@@ -48,7 +48,7 @@ CREATE TABLE old_stories (
         body TEXT,
 	date TIMESTAMP,
         writer TIMEUUID,
-        category TIMEUUID,
+        category INT,
         PRIMARY KEY(id, date)
 )
 WITH CLUSTERING ORDER BY (date DESC);
@@ -62,7 +62,7 @@ CREATE TABLE submissions (
         body TEXT,
         date TIMESTAMP,
         writer TIMEUUID,
-        category TIMEUUID,
+        category INT,
         PRIMARY KEY(id, date)
 ) 
 WITH CLUSTERING ORDER BY (date DESC);
@@ -116,21 +116,17 @@ CREATE TABLE moderator_log (
 	PRIMARY KEY(id)
 ) WITH COMPACT STORAGE;	
 
-CREATE TABLE user_stories (
-	nickname VARCHAR, 
-	date TIMESTAMP, 
-	story_id TIMEUUID, 
-	title TEXT, 
-	PRIMARY KEY(nickname, date, story_id)
-) WITH CLUSTERING ORDER BY (date DESC) AND COMPACT STORAGE;
+CREATE TABLE stories_users (
+	story_id TIMEUUID,
+	nickname VARCHAR,
+	PRIMARY KEY(story_id, nickname)
+) WITH COMPACT STORAGE;
 
-CREATE TABLE user_old_stories (
-        nickname VARCHAR,
-        date TIMESTAMP,
+CREATE TABLE old_stories_users (
         story_id TIMEUUID,
-        title TEXT,
-        PRIMARY KEY(nickname, date, story_id)
-) WITH CLUSTERING ORDER BY (date DESC) AND COMPACT STORAGE;
+	nickname VARCHAR,
+	PRIMARY KEY(story_id, nickname)
+) WITH COMPACT STORAGE;
 
 CREATE TABLE comment_count (
 	story_id TIMEUUID,
