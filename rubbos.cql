@@ -2,7 +2,7 @@ CREATE KEYSPACE IF NOT EXISTS rubbos WITH REPLICATION = {'class' : 'SimpleStrate
 USE rubbos;
 
 CREATE TABLE categories (
-	id TIMEUUID,
+	id INT,
 	name VARCHAR,
 	PRIMARY KEY(id)
 ) WITH COMPACT STORAGE;
