@@ -1,10 +1,13 @@
 <?php
 require 'vendor/autoload.php'; 
+use Uuid\Uuid;
+
 function getDatabaseLink(&$link)
 {
   $nodes = ['10.10.10.8:9042'];
   $link = new evseevnn\Cassandra\Database($nodes, 'rubbos') or die ("ERROR: Could not connect to database");
   $link->connect() or die("ERROR: Couldn't select RUBBoS database");
+  Uuid::setMAC('fa:16:3e:b4:40:cf');
 }
 
 function getMicroTime()
@@ -49,7 +52,7 @@ function authenticate($nickname, $password, $link)
 //  if (mysql_num_rows($result) == 0)
 //    return 0; // 0 is the anonymous user
 //  $row = mysql_fetch_array($result);
-  $result = $link->query("SELECT id FROM user_logins WHERE nickname=\"$nickname\" AND password=\"$password\"") or die("ERROR: Authentification query failed");
+  $result = $link->query("SELECT id FROM user_logins WHERE nickname='$nickname' AND password='$password' ; ") or die("ERROR: Authentification query failed");
   if (count($result) == 0)
     return 0; // 0 is the anonymous user
   $row = $result[0];
@@ -59,9 +62,10 @@ function authenticate($nickname, $password, $link)
 
 function getUserName($uid, $link)
 {
-  $user_query = $link->query("SELECT nickname FROM users WHERE id=$uid;") or die("ERROR: getUserName query failed");
- // $user_row = mysql_fetch_array($user_query);
-  return $user_query["nickname"];
+  $user_query = $link->query("SELECT nickname FROM users WHERE id=$uid ;") or die("ERROR: getUserName query failed");
+   // $user_row = mysql_fetch_array($user_query);
+  $user_row = $user_query[0];
+  return $user_row["nickname"];
 }
 
 ?>
