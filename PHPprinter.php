@@ -54,8 +54,9 @@ function authenticate($nickname, $password, $link)
 //  $row = mysql_fetch_array($result);
   $result = $link->query("SELECT id FROM user_logins WHERE nickname='$nickname' AND password='$password' ; ") or die("ERROR: Authentification query failed");
   if (count($result) == 0)
-    return 0; // 0 is the anonymous user
+    return -1; // 0 is the anonymous user
   $row = $result[0];
+  echo($row["id"]);
   return $row["id"];
 }
 
