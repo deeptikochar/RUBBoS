@@ -8,7 +8,7 @@ function display_follow_up($cid, $level, $display, $filter, $link, $comment_tabl
 {
  echo("SELECT story_id,id,subject,writer,date FROM $comment_table WHERE parent=$cid;");
  // $follow = mysql_query("SELECT story_id,id,subject,writer,date FROM $comment_table WHERE parent=$cid", $link) or die("ERROR: Query failed");
-  $follow = $link->query("SELECT story_id,id,subject,writer,date FROM $comment_table WHERE parent=$cid;")or die("1 ERROR: Query failed");
+  $follow = $link->query("SELECT story_id,id,subject,writer,date FROM $comment_table WHERE parent=$cid;");
  // while ($follow_row = mysql_fetch_array($follow))
   foreach($follow as $follow_row)
   {
@@ -38,12 +38,12 @@ function display_follow_up($cid, $level, $display, $filter, $link, $comment_tabl
       
     getDatabaseLink($link);
 //    $result = mysql_query("SELECT * FROM stories WHERE id=$storyId") or die("ERROR: Query failed");
-    $result = $link->query("SELECT * FROM stories WHERE id=$storyId;") or die("2 ERROR: Query failed");
+    $result = $link->query("SELECT * FROM stories WHERE id=$storyId;");
     if (count($result) == 0)
     {
      // $result = mysql_query("SELECT * FROM old_stories WHERE id=$storyId") or die("ERROR: Query failed");
-    $result = $link->query("SELECT * FROM old_stories WHERE id=$storyId;") or die("3 ERROR: Query failed");  
-    $comment_table = "old_comments";
+      $result = $link->query("SELECT * FROM old_stories WHERE id=$storyId;");  
+      $comment_table = "old_comments";
     }
     else
       $comment_table = "comments";
