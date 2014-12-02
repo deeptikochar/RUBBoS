@@ -6,7 +6,6 @@
 // Display the nested comments
 function display_follow_up($cid, $level, $display, $filter, $link, $comment_table)
 {
- echo("SELECT story_id,id,subject,writer,date FROM $comment_table WHERE parent=$cid;");
  // $follow = mysql_query("SELECT story_id,id,subject,writer,date FROM $comment_table WHERE parent=$cid", $link) or die("ERROR: Query failed");
   $follow = $link->query("SELECT story_id,id,subject,writer,date FROM $comment_table WHERE parent=$cid;");
  // while ($follow_row = mysql_fetch_array($follow))
@@ -102,10 +101,9 @@ function display_follow_up($cid, $level, $display, $filter, $link, $comment_tabl
           "</SELECT>&nbsp&nbsp&nbsp&nbsp<input type=submit value=\"Refresh display\"></center><p>\n");          
     $display = 1;
     $filter = 0;
-    // echo("SELECT * FROM $comment_table WHERE story_id=$storyId AND rating>=$filter allow filtering;");
     // Display the comments
    // $comment = mysql_query("SELECT * FROM $comment_table WHERE story_id=$storyId AND parent=0 AND rating>=$filter", $link) or die("ERROR: Query failed");
-   $comment = $link->query("SELECT * FROM $comment_table WHERE story_id=$storyId AND rating>=$filter allow filtering;") or die("5 ERROR: Query failed");
+   $comment = $link->query("SELECT * FROM $comment_table WHERE story_id=$storyId AND rating>=$filter allow filtering;");
   //  while ($comment_row = mysql_fetch_array($comment))
     foreach($comment as $comment_row)
     {
