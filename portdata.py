@@ -185,10 +185,11 @@ def port_comments(user_dict, stories_dict, comment_dict):
             story_timeuuid = stories_dict[element[2]]
         else:
             print("Comment story id not in stories table" + element[2])
+
         if element[3] in comment_dict:
             parent_timeuuid = comment_dict[element[3]]
         else:
-            parent_timeuuid = ''
+            parent_timeuuid = '11111111-1111-1111-1111-111111111111'
         output_line =  id+","+ writer_timeuuid +","+story_timeuuid+","+parent_timeuuid+","+element[4]+","+element[5]+","+date + ",\"" + element[7] + "\",\"" + element[8] + "\"\n"
         output_f.write(output_line)
         tuple1 = (story_timeuuid, element[5])
@@ -245,7 +246,7 @@ def port_old_comments(user_dict, stories_dict):
         if element[3] in comment_dict:
             parent_timeuuid = comment_dict[element[3]]
         else:
-            parent_timeuuid = ''
+            parent_timeuuid = '11111111-1111-1111-1111-111111111111'
 
         output_line =  id+","+ writer_timeuuid +","+story_timeuuid+","+parent_timeuuid+","+element[4]+","+element[5]+","+date + ",\"" + element[7] + "\",\"" + element[8] + "\"\n"
         output_f.write(output_line)
