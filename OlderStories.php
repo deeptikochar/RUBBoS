@@ -96,7 +96,7 @@
           $username = getUserName($row["writer"], $link);
         else
           $username = "Anonymous Coward";
-        print("<a href=\"/rubbos/ViewStory.php?storyId=".$row["id"]."\">".$row["title"]."</a> by ".$username." on ".$row["date"]."<br>\n");
+        print("<a href=\"/rubbos/ViewStory.php?storyId=".$row["id"]."\">".$row["title"]."</a> by ".$username." on ".date("Y-m-d H:i:s",$row["date"])."<br>\n");
       }
       
       // Previous/Next links
