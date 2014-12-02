@@ -4,8 +4,8 @@ USE rubbos;
 CREATE TABLE categories (
 	id INT,
 	name VARCHAR,
-	PRIMARY KEY(id)
-) WITH COMPACT STORAGE;
+	PRIMARY KEY(id, name)
+) WITH CLUSTERING ORDER BY (name ASC) AND COMPACT STORAGE;
 
 CREATE TABLE users (
 	id TIMEUUID,
@@ -87,6 +87,9 @@ CREATE INDEX comments_rating
 CREATE INDEX comments_parent
 	ON comments(parent);
 
+CREATE INDEX comments_story_id
+	ON comments(story_id);
+
 CREATE TABLE old_comments (
         id TIMEUUID,
         writer TIMEUUID,
@@ -106,6 +109,9 @@ CREATE INDEX old_comments_rating
 
 CREATE INDEX old_comments_parent
         ON old_comments(parent);
+
+CREATE INDEX old_comments_story_id
+	ON old_comments(story_id);
 
 CREATE TABLE moderator_log (
 	id TIMEUUID,
