@@ -32,7 +32,7 @@ function display_follow_up($cid, $level, $display, $filter, $link, $comment_tabl
 	    print("<TABLE>");
 	    for ($i = 0 ; $i < $level ; $i++)
 	      printf("<TD>&nbsp&nbsp&nbsp");
-	    print("<TD><B>Posted by ".$username." on ".$follow_row["date"]."</B><p><TR>\n");
+	    print("<TD><B>Posted by ".$username." on ".date("Y-m-d H:i:s", $follow_row["date"])."</B><p><TR>\n");
 	    for ($i = 0 ; $i < $level ; $i++)
 	      printf("<TD>&nbsp&nbsp&nbsp");
 	    print("<TD>".$follow_row["comment"]."<TR>");
@@ -110,7 +110,7 @@ function display_follow_up($cid, $level, $display, $filter, $link, $comment_tabl
     else
     {
 //      $result = mysql_query("SELECT parent FROM $comment_table WHERE id=$commentId", $link) or die("ERROR: Query failed");
-      $result = $link->query("SELECT parent FROM $comment_table WHERE id=$commentId;") or die("ERROR: Query failed");
+      $result = $link->query("SELECT parent FROM $comment_table WHERE id=$commentId;");
 //      if (mysql_num_rows($result) == 0)
       if (count($result) == 0)
         die("<h3>ERROR: Sorry, but this comment does not exist.</h3><br>\n");
@@ -128,7 +128,7 @@ function display_follow_up($cid, $level, $display, $filter, $link, $comment_tabl
           "<input type=hidden name=comment_table value=$comment_table>\n".
           "<B>Filter :</B>&nbsp&nbsp<SELECT name=filter>\n");
 //    $count_result = mysql_query("SELECT rating, COUNT(rating) AS count FROM $comment_table WHERE story_id=$storyId GROUP BY rating ORDER BY rating", $link) or die("ERROR: Query failed");
-    $count_result = $link->query("SELECT rating, count FROM comment_count WHERE story_id=$storyId ORDER BY rating;") or die("ERROR: Query failed");
+    $count_result = $link->query("SELECT rating, count FROM comment_count WHERE story_id=$storyId ORDER BY rating;");
     $i = -1;
 //    while ($count_row = mysql_fetch_array($count_result))
     foreach ($count_result as $count_row)
@@ -170,7 +170,7 @@ function display_follow_up($cid, $level, $display, $filter, $link, $comment_tabl
 
     // Display the comments
 //$comment = mysql_query("SELECT * FROM $comment_table WHERE story_id=$storyId AND parent=0 AND rating>=$filter", $link) or die("ERROR: Query failed");
-$comment = $link->query("SELECT * from $comment_table WHERE story_id=$storyId AND parent=NULL and rating>=$filter ALLOW FILTERING;") or die("ERROR: Query failed");
+$comment = $link->query("SELECT * from $comment_table WHERE story_id=$storyId AND parent=NULL and rating>=$filter ALLOW FILTERING;");
 //    while ($comment_row = mysql_fetch_array($comment))
     foreach ($comment as $comment_row)
     {
@@ -178,7 +178,7 @@ $comment = $link->query("SELECT * from $comment_table WHERE story_id=$storyId AN
 	  print("<br><hr><br>");
 	  $username = getUserName($comment_row["writer"], $link);
 	  print("<TABLE width=\"100%\" bgcolor=\"#CCCCFF\"><TR><TD><FONT size=\"4\" color=\"#000000\"><B><a href=\"/rubbos/ViewComment.php?comment_table=$comment_table&storyId=$storyId&commentId=".$comment_row["id"]."&filter=$filter&display=$display\">".$comment_row["subject"]."</a></B>&nbsp</FONT> (Score:".$comment_row["rating"].")</TABLE>\n");
-	  print("<TABLE><TR><TD><B>Posted by ".$username." on ".$comment_row["date"]."</B><p>\n");
+	  print("<TABLE><TR><TD><B>Posted by ".$username." on ".date("Y-m-d H:i:s", $comment_row["date"])."</B><p>\n");
 	  print("<TR><TD>".$comment_row["comment"]);
 	  print("<TR><TD><p>[ <a href=\"/rubbos/PostComment.php?comment_table=$comment_table&storyId=$storyId&parent=".$comment_row["id"]."\">Reply to this</a>&nbsp|&nbsp".
 		"<a href=\"/rubbos/ViewComment.php?comment_table=$comment_table&storyId=$storyId&commentId=".$comment_row["parent"]."&filter=$filter&display=$display\">Parent</a>".

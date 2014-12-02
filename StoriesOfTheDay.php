@@ -22,7 +22,7 @@
       print("<br><hr>\n");
       printHTMLHighlighted("<a href=\"/rubbos/ViewStory.php?storyId=".$row["id"]."\">".$row["title"]."</a>");
       $username = getUserName($row["writer"], $link);
-      print("<B>Posted by ".$username." on ".$row["date"]."</B><br>\n");
+      print("<B>Posted by ".$username." on ".date("Y-m-d H:i:s", $row["date"])."</B><br>\n");
       if (strlen($row["body"]) > $bodySizeLimit)
       {
         print(substr($row["body"], 1, $bodySizeLimit));
