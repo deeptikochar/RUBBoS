@@ -6,18 +6,13 @@ import random
 
 def port_data():
     user_dict = port_users()
-    print(len(user_dict))
     stories_dict = port_stories('stories.data', user_dict)
     port_stories('old_stories.data', user_dict)
     port_submissions(user_dict)
     comment_dict = port_old_comments(user_dict, stories_dict)
-    print(len(comment_dict))
     port_comments(user_dict, stories_dict, comment_dict)
     port_moderator_log(user_dict, comment_dict)
-    # for key, elem in comment_dict:
-    #     for key1, elem1 in comment_dict:
-    #         if key != key1 and elem == elem1:
-    #             print("Clash: "+ key +"," + key1)
+
 
 # Function Name: port_users
 # 1. Ports users.data to users.csv
@@ -70,11 +65,8 @@ def port_stories(filename, user_dict):
     output_f1 = open(output_filename1, 'w')
     stories_dict = dict()
     for line in input_f:
-        if('\0' in line):
-            print(line)
         element = line.split("\t")
         story_id = element[0]
-        title = element[1]
         date = element[3]
         try:
             temp_date = datetime.datetime.strptime(date, "%Y-%m-%d")
@@ -89,8 +81,6 @@ def port_stories(filename, user_dict):
             output_line1 = id +",\"" + nickname +"\"\n"
             output_f1.write(output_line1)
             writer_timeuuid = user_dict[writer_id][1]
-        else:
-            print("Writer not in user_dict:" + writer_id)
 
         output_line = id + ",\"" + element[1] + "\",\"" + element[2] + "\"," + date + "," + writer_timeuuid +","+element[5]
         output_f.write(output_line)
@@ -120,9 +110,6 @@ def port_submissions(user_dict):
 
         if(writer_id in user_dict):
             writer_timeuuid = user_dict[writer_id][1]
-        else:
-            print("Writer not in user_dict:" + writer_id)
-            # write code for randomly picking a writer here
 
         output_line = id + ",\"" + element[1] + "\",\"" + element[2] + "\"," + date + "," + writer_timeuuid +","+element[5]
         output_f.write(output_line)
@@ -146,12 +133,11 @@ def port_moderator_log(user_dict, comment_dict):
         if moderator_id in user_dict:
             moderator_timeuuid = user_dict[moderator_id][1]
         else:
-            print("Moderator id not in users" + moderator_id)
+            continue
         comment_id = element[2]
         if comment_id in comment_dict:
             comment_timeuuid = comment_dict[comment_id]
-        else:
-            print("Comment id not in comments table" + comment_id)
+
         output_line = id +"," + moderator_timeuuid + "," + comment_timeuuid + "," + element[3]
         output_f.write(output_line)
     input_f.close()
@@ -183,8 +169,6 @@ def port_comments(user_dict, stories_dict, comment_dict):
             writer_timeuuid = ''
         if element[2] in stories_dict:
             story_timeuuid = stories_dict[element[2]]
-        else:
-            print("Comment story id not in stories table" + element[2])
 
         if element[3] in comment_dict:
             parent_timeuuid = comment_dict[element[3]]
@@ -232,15 +216,11 @@ def port_old_comments(user_dict, stories_dict):
         if element[1] in user_dict:
             writer_timeuuid = user_dict[element[1]][1]
         else:
-            if element[1] != '0':
-                print("Comment Writer not in users table" + element[0] + "," + element[1])
             writer_timeuuid = ''
 
         if element[2] in stories_dict:
             story_timeuuid = stories_dict[element[2]]
         else:
-            # print("Comment story id not in stories table" + element[2])
-        #     write code to randomly assign story id
             story_timeuuid = ''
 
         if element[3] in comment_dict:
