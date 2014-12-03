@@ -21,7 +21,7 @@
 //    while ($row = mysql_fetch_array($result))
     foreach ($result as $row)
     {
-      print("<a href=\"/PHP/BrowseStoriesByCategory.php?category=".$row["id"]."&categoryName=".urlencode($row["name"])."\">".$row["name"]."</a><br>\n");
+      print("<a href=\"/rubbos/BrowseStoriesByCategory.php?category=".$row["id"]."&categoryName=".urlencode($row["name"])."\">".$row["name"]."</a><br>\n");
     }
 //    mysql_free_result($result);
 //    mysql_close($link);

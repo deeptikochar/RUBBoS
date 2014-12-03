@@ -40,10 +40,6 @@
          exit();
       }
     }
-    if ($parent == -1)
-    {
-       $parent = 'null';
-    }
 
     $subject = $_POST['subject'];
     if ($subject == null)
@@ -111,7 +107,7 @@
     $count = $count + 1;
     $result = $link->query("INSERT INTO comment_count (story_id, rating, count) VALUES ($storyId, 0, $count);")  or die("ERROR: Failed to update comment count in database.");
     
-    if ($parent != 'null')
+    if ($parent != '11111111-1111-1111-1111-111111111111')
     {
       $result = $link->query("SELECT childs, date FROM $comment_table where id=$parent;") or die("ERROR: Failed to update parent childs in database.");
       $row = $result[0];

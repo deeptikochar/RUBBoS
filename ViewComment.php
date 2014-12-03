@@ -106,7 +106,7 @@ function display_follow_up($cid, $level, $display, $filter, $link, $comment_tabl
     getDatabaseLink($link);
     if ($commentId == 0)
 
-      $parent = 0;
+      $parent = '11111111-1111-1111-1111-111111111111';
     else
     {
 //      $result = mysql_query("SELECT parent FROM $comment_table WHERE id=$commentId", $link) or die("ERROR: Query failed");
@@ -170,7 +170,7 @@ function display_follow_up($cid, $level, $display, $filter, $link, $comment_tabl
 
     // Display the comments
 //$comment = mysql_query("SELECT * FROM $comment_table WHERE story_id=$storyId AND parent=0 AND rating>=$filter", $link) or die("ERROR: Query failed");
-$comment = $link->query("SELECT * from $comment_table WHERE story_id=$storyId AND parent=NULL and rating>=$filter ALLOW FILTERING;");
+$comment = $link->query("SELECT * from $comment_table WHERE story_id=$storyId AND parent=11111111-1111-1111-1111-111111111111 and rating>=$filter ALLOW FILTERING;");
 //    while ($comment_row = mysql_fetch_array($comment))
     foreach ($comment as $comment_row)
     {

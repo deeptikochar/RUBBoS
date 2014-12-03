@@ -56,7 +56,7 @@ function display_follow_up($cid, $level, $display, $filter, $link, $comment_tabl
     printHTMLHighlighted($row["title"]);
     print("Posted by ".$username." on ".date("Y-m-d H:i:s", $row["date"])."<br>\n");
     print($row["body"]."<br>\n");
-      print("<p><center><a href=\"/rubbos/PostComment.php?comment_table=$comment_table&storyId=$storyId&parent=-1\">Post a comment on this story</a></center><p>");
+      print("<p><center><a href=\"/rubbos/PostComment.php?comment_table=$comment_table&storyId=$storyId&parent=11111111-1111-1111-1111-111111111111\">Post a comment on this story</a></center><p>");
 
     // Display filter chooser header
     print("<br><hr><br>");
@@ -103,7 +103,7 @@ function display_follow_up($cid, $level, $display, $filter, $link, $comment_tabl
     $filter = 0;
     // Display the comments
    // $comment = mysql_query("SELECT * FROM $comment_table WHERE story_id=$storyId AND parent=0 AND rating>=$filter", $link) or die("ERROR: Query failed");
-   $comment = $link->query("SELECT * FROM $comment_table WHERE story_id=$storyId AND rating>=$filter allow filtering;");
+   $comment = $link->query("SELECT * FROM $comment_table WHERE story_id=$storyId AND parent=11111111-1111-1111-1111-111111111111 AND rating>=$filter allow filtering;");
   //  while ($comment_row = mysql_fetch_array($comment))
     foreach($comment as $comment_row)
     {

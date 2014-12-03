@@ -63,6 +63,8 @@ function authenticate($nickname, $password, $link)
 
 function getUserName($uid, $link)
 {
+  if ($uid == null)
+    return "Anonymous Coward";
   $user_query = $link->query("SELECT nickname FROM users WHERE id=$uid ;") or die("ERROR: getUserName query failed");
    // $user_row = mysql_fetch_array($user_query);
   $user_row = $user_query[0];
